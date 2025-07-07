@@ -50,15 +50,31 @@ class App extends Component {
       success.roll = "Valid Roll Number";
     }
 
-    if (!name) {
-      error.name = "Name is required";
-      isValid = false;
-    } else if (!/^[a-zA-Z ]+$/.test(name)) {
-      error.name = "Name must contain only letters";
-      isValid = false;
-    } else {
-      success.name = "Valid Name";
+   if (!name) {
+  error.name = "Name is required";
+  isValid = false;
+} else {
+  let isAlpha = true;
+  for (let i = 0; i < name.length; i++) {
+    const charCode = name.charCodeAt(i);
+    if (
+      !(charCode >= 65 && charCode <= 90) &&   // A-Z
+      !(charCode >= 97 && charCode <= 122) &&  // a-z
+      !(charCode === 32)                       // space
+    ) {
+      isAlpha = false;
+      break;
     }
+  }
+
+  if (!isAlpha) {
+    error.name = "Name must contain only letters";
+    isValid = false;
+  } else {
+    success.name = "Valid Name";
+  }
+}
+
 
     if (!contact) {
       error.contact = "Contact number is required";
@@ -158,8 +174,8 @@ class App extends Component {
               className="form-control"
               ref={(student_name) => (this.nameInput = student_name)}
             />
-            <small style={{ color: "red" }}>{this.state.error.roll}</small>
-            <small style={{ color: "green" }}>{this.state.success.roll}</small>
+            <small style={{ color: "red" }}>{this.state.error.name}</small>
+            <small style={{ color: "green" }}>{this.state.success.name}</small>
           </div>
           <div className="col-md-5">
             <label style={{ fontSize: "20px" }} className="form-label">
