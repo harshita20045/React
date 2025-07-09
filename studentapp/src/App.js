@@ -50,31 +50,30 @@ class App extends Component {
       success.roll = "Valid Roll Number";
     }
 
-   if (!name) {
-  error.name = "Name is required";
-  isValid = false;
-} else {
-  let isAlpha = true;
-  for (let i = 0; i < name.length; i++) {
-    const charCode = name.charCodeAt(i);
-    if (
-      !(charCode >= 65 && charCode <= 90) &&   // A-Z
-      !(charCode >= 97 && charCode <= 122) &&  // a-z
-      !(charCode === 32)                       // space
-    ) {
-      isAlpha = false;
-      break;
+    if (!name) {
+      error.name = "Name is required";
+      isValid = false;
+    } else {
+      let isAlpha = true;
+      for (let i = 0; i < name.length; i++) {
+        const charCode = name.charCodeAt(i);
+        if (
+          !(charCode >= 65 && charCode <= 90) &&
+          !(charCode >= 97 && charCode <= 122) &&
+          !(charCode === 32)
+        ) {
+          isAlpha = false;
+          break;
+        }
+      }
+
+      if (!isAlpha) {
+        error.name = "Name must contain only letters";
+        isValid = false;
+      } else {
+        success.name = "Valid Name";
+      }
     }
-  }
-
-  if (!isAlpha) {
-    error.name = "Name must contain only letters";
-    isValid = false;
-  } else {
-    success.name = "Valid Name";
-  }
-}
-
 
     if (!contact) {
       error.contact = "Contact number is required";
